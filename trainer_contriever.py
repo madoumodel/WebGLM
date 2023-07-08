@@ -16,9 +16,9 @@ from contriever.src.contriever import Contriever
 arguments
 '''
 logging_name = "contriever" + "2-23-1"
-dataset_path = "/mnt/vepfs/workspace/xuyifan/WebGLM/data/datasets/filter-finetune"
+dataset_path = "data"
 pretrain_tokenizer = "facebook/mcontriever-msmarco"
-model_path = "/mnt/vepfs/workspace/xuyifan/WebGLM/model/mcontriever-msmarco"
+model_path = "facebook/mcontriever-msmarco"
 load_checkpoint = "/mnt/vepfs/workspace/xuyifan/WebGLM/ckpt/ckpt_contriever/20230218-174221/step-869-epoch-0.ckpt" #optional
 save_checkpoint = "ckpt/ckpt_contriever/%s"%(time.strftime("%Y%m%d-%H%M%S", time.localtime(time.time())))
 max_epoch = 5
@@ -142,8 +142,8 @@ tokenizer = AutoTokenizer.from_pretrained(pretrain_tokenizer)
 
 def collate(data):
     question = tokenizer([item["question"] for item in data], return_tensors="pt", padding=True, truncation=True)
-    positive_reference = tokenizer([item["positive_reference"] for item in data], return_tensors="pt", padding=True, truncation=True)
-    negative_reference = tokenizer([item["negative_reference"] for item in data], return_tensors="pt", padding=True, truncation=True)
+    positive_reference = tokenizer([item["positive"] for item in data], return_tensors="pt", padding=True, truncation=True)
+    negative_reference = tokenizer([item["negative"] for item in data], return_tensors="pt", padding=True, truncation=True)
 
     for key in question: question[key] = question[key].to(device)
     for key in positive_reference: positive_reference[key] = positive_reference[key].to(device)

@@ -75,8 +75,8 @@ def move_dict_to_device(obj, device):
 
 def collate(data):
     question = tokenizer([item["question"] for item in data], return_tensors="pt", padding=True, truncation=True)
-    positive_reference = tokenizer([item["positive_reference"] for item in data], return_tensors="pt", padding=True, truncation=True)
-    negative_reference = tokenizer([item["negative_reference"] for item in data], return_tensors="pt", padding=True, truncation=True)
+    positive_reference = tokenizer([item["positive"] for item in data], return_tensors="pt", padding=True, truncation=True)
+    negative_reference = tokenizer([item["negative"] for item in data], return_tensors="pt", padding=True, truncation=True)
 
     for key in question: question[key] = question[key].to(args.device)
     for key in positive_reference: positive_reference[key] = positive_reference[key].to(args.device)
